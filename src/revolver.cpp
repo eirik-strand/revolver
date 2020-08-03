@@ -26,7 +26,7 @@ int main(int, char **) {
   // open the default camera using default API
   // cap.open(0);
   // OR advance usage: select any API backend
-  int deviceID = 0;        // 0 = open default camera
+  int deviceID = 1;        // 0 = open default camera
   int apiID = cv::CAP_ANY; // 0 = autodetect default API
   // open selected camera using selected API
   cap.open(deviceID, apiID);
@@ -61,7 +61,7 @@ int main(int, char **) {
     std::vector<bool> row7;
     std::vector<bool> row8;
 
-    std::vector<int> calibration{0, 65, 125, 180, 252, 314, 380, 445, 480};
+    std::vector<int> calibration{0, 65, 125, 180, 252, 314, 380, 445, 500};
     int width = 45;
     int separation = 20;
     for (int r = 0; r < out.rows; r++) {
@@ -212,6 +212,9 @@ int main(int, char **) {
 
     uint8_t bits = std::stoi(bitstring, nullptr, 2);
     angle = GrayToBinary32(bits) * 360 / 256;
+    double perc = row8.size() / 1200.0;
+    if (!r8)
+      angle += perc;
 
     std::cout << "angle: " << angle << std::endl << std::endl;
 
